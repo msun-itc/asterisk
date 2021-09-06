@@ -1,0 +1,15 @@
+#!/bin/bash
+ci=$2
+if grep $1 /home/asterisk/asterisk-bin/asterisk/sip.d/abons.conf
+then
+        echo 'Номер уже существует'
+else
+        if [ $# -eq 1 ]
+        then ci=$1
+        fi
+        echo -e '['$1'](generic-phone) \n'\
+'       secret='$(pwgen -1 -n 8)'\n'\
+'       nat=no\n'\
+'       callerid='$ci'\n'>> /home/asterisk/asterisk-bin/asterisk/sip.d/abons.conf
+fi
+tail -n 5 /home/asterisk/asterisk-bin/asterisk/sip.d/abons.conf
