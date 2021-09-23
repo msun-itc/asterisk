@@ -11,5 +11,4 @@
 #### В планах: 
 Совместить new_massive_sip и new_massive_sip_grandstream в один файл со включением дополнительно аргумента - модели телефона
 
-
 Автор [Сергей](https://github.com/sermer07)   
