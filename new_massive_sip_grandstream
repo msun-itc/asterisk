@@ -1,0 +1,21 @@
+#!/bin/bash
+
+for ((i = $1; i <= $2; i++))
+do
+	if grep $i /home/asterisk/asterisk-bin/asterisk/sip.d/abons.conf
+	then
+        	echo 'Номер уже существует'
+	else
+	pass=$(pwgen -1 -n 8)
+	        echo -e '['$i'](generic-phone) \n'\
+	'       secret='$pass'\n'\
+	'       nat=no\n'\
+	'       callerid='$i'\n'>> /home/asterisk/asterisk-bin/asterisk/sip.d/abons.conf
+	cp /voip-configs/grandstream/voip.txt /voip-configs/grandstream/$i.txt
+	sed -i -e '
+	s/P270=/P270='$i'/
+	s/P35=/P35='$i'/
+	s/P36=/P36='$i'/
+        s/P34=/P34='$pass'/' /voip-configs/grandstream/$i.txt
+	fi
+done
